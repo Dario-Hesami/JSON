@@ -36,17 +36,49 @@
 			var iScreamInc = request.response;
 			console.log(iScreamInc);
 			populateHeader(iScreamInc);
-			//2
+			showTopFlavors(iScreamInc);
 		}
 		/* STEP 9: Build out the populateHeader() function */
 		function populateHeader(jsonObj) {
 			var headerH1 = document.createElement('h1');
 			headerH1.textContent = jsonObj['companyName'];
 			header.appendChild(headerH1);
-
+			var headerPara = document.createElement('p');
+			headerPara.textContent = 'Head Office: ' + jsonObj['headOffice'] + ', Estabilished: ' + jsonObj['established'];
+			header.appendChild(headerPara);
 		}
 		/* STEP 10a: Assemble the showTopFlavors() function */
+			function showTopFlavors(jsonObj) {
+				var topFlavors = jsonObj.topFlavors;
+				for(var i = 0; i< topFlavors.length; i++ ){
+					var article = document.createElement('article');
+					var h2 = document.createElement('h2');
+					var img = document.createElement('img');
+					var p1 = document.createElement('p');
+					var p2 = document.createElement('p');
+					var list = document.createElement('ul');
+					img.setAttribute('src', 'https://dario-hesami.github.io/JSON/images/' + topFlavors[i].image);
+					h2.textContent = topFlavors[i].name;
+					p1.textContent = 'Calories: ' + topFlavors[i].calories;
+					p2.textContent = 'Type: ' + topFlavors[i].type;
+					var ingredients = topFlavors[i].ingredients;
+					for (var j=0; j<ingredients.length; j++) {
+						var listItem = document.createElement('li');
+						listItem.textContent = ingredients[j];
+						list.appendChild(listItem);						
+					}
 
+					article.appendChild(img);
+					article.appendChild(h2);
+					article.appendChild(p1);
+					article.appendChild(p2);
+					article.appendChild(list);
+					section.appendChild(article);
+
+
+
+				}
+			}
 			// STEP 10b: Bind the JSON topFlavors object to a var
 
 			// STEP 10c: Loop through the topFlavors object
